@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thunisoft.mapper.AfsMapper">
+
+    <resultMap type="com.thunisoft.model.Afs" id="afsMap">
+        <id property="id" column="C_ID" />
+        <result property="name" column="C_NAME" />
+        <result property="phone" column="C_PHONE" />
+        <result property="address" column="C_ADDRESS" />
+        <result property="username" column="c_loginId" />
+        <result property="password" column="c_password" />
+    </resultMap>
+
+    <select id="getMessage" resultType="com.thunisoft.model.Afs" resultMap="afsMap">
+        SELECT
+        c_id,
+        c_name,
+        c_phone,
+        c_address,
+        c_loginid,
+        c_password
+        FROM user
+    </select>
+
+    <select id="login" resultType="com.thunisoft.model.Afs" resultMap="afsMap">
+        select
+        c_id,
+        c_name,
+        c_phone,
+        c_address,
+        c_loginid,
+        c_password
+        from user
+        where c_loginId = #{username} and c_password = #{password}
+    </select>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thunisoft.mapper.CwlbMapper">
+
+    <resultMap type="com.thunisoft.model.Financial" id="financialMap">
+        <id property="id" column="C_ID" />
+        <result property="xh" column="xh" />
+        <result property="name" column="C_NAME" />
+        <result property="phone" column="C_PHONE" />
+        <result property="address" column="C_ADDRESS" />
+        <result property="createtime" column="n_createtime" />
+        <result property="price" column="c_price" />
+    </resultMap>
+
+    <select id="getCwlbTableData" resultType="com.thunisoft.model.Financial" resultMap="financialMap">
+        SELECT
+        @rownum := @rownum + 1 AS xh,
+        c_id,
+        c_name,
+        c_phone,
+        c_address,
+        n_createtime,
+        c_price
+        FROM financial,(select @rownum:=0) r
+    </select>
+
+    <update id="saveCwData" parameterType="com.thunisoft.model.Financial">
+        update afs.financial
+        <set>
+            c_name = #{name},
+            c_phone = #{phone},
+            c_address = #{address},
+            n_createtime = #{createtime},
+            c_price = #{price}
+        </set>
+        where c_id = #{id}
+    </update>
+
+</mapper>
